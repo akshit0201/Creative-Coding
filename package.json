@@ -1,0 +1,23 @@
+{
+  "name": "Creative-Coding",
+  "version": "1.0.0",
+  "description": "Repo for creative coding projects with Canvas &amp; WebGL",
+  "main": "sketch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshit0201/Creative-Coding.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akshit0201/Creative-Coding/issues"
+  },
+  "homepage": "https://github.com/akshit0201/Creative-Coding#readme",
+  "dependencies": {
+    "canvas-sketch": "^0.7.5"
+  }
+}
