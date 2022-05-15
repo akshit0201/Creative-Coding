@@ -26,7 +26,7 @@ const x = u * width
       const y = v* height
 
       context.beginPath()
-      context.arc(x,y,200,0,Math.PI*2)
+      context.arc(x,y,250,0,Math.PI*2)
       context.lineWidth = 30
       context.stroke()
     })
