@@ -2,11 +2,15 @@ const canvasSketch = require('canvas-sketch');
 const {lerp} = require("canvas-sketch-util/math");
 const random = require('canvas-sketch-util/random')
 const {math} = require("canvas-sketch-util");
+const palettes = require('nice-color-palettes')
+
 const settings = {
   dimensions: [ 1500, 1500 ]
 };
 
 const sketch = () => {
+    const colorcount = random.rangeFloor(1,5)
+    const palette = random.shuffle(random.pick(palettes)).slice(0,colorcount)
   const createGrid = () =>{
     const points = []
     const count = 50
@@ -15,6 +19,7 @@ const sketch = () => {
         const u = count<=1?0.5: x/(count-1)
         const v = count<=1?0.5: y/(count-1)
         points.push({
+            color: random.pick(palette),
             radius: Math.abs(random.gaussian()*0.01),
               position: [u,v]})
       }
@@ -31,7 +36,8 @@ context.fillStyle = 'white'
     points.forEach(data => {
         const {
             radius,
-            position
+            position,
+            color
         } = data
         const [u,v] = position
 const x = lerp(margin,width-margin,u)
@@ -40,7 +46,7 @@ const x = lerp(margin,width-margin,u)
       context.beginPath()
       context.arc(x,y,radius*width,0,Math.PI*2)
       context.lineWidth = 5
-context.fillStyle = "green"
+context.fillStyle = color
     context.fill()
     })
   };
