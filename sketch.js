@@ -21,8 +21,9 @@ const sketch = () => {
 
         points.push({
             color: random.pick(palette),
-            radius: Math.abs(random.noise2D(u,v))*0.025,
-              position: [u,v]})
+            radius: Math.abs(random.noise2D(u,v))*0.1,
+              position: [u,v],
+        rotation: random.noise2D(u,v)})
       }
     }
     return points
@@ -37,17 +38,25 @@ context.fillStyle = 'white'
         const {
             radius,
             position,
-            color
+            color,
+            rotation
         } = data
         const [u,v] = position
 const x = lerp(margin,width-margin,u)
       const y = lerp(margin,height-margin,v)
 
-      context.beginPath()
-      context.arc(x,y,radius*width,0,Math.PI*2)
-      context.lineWidth = 5
-context.fillStyle = color
-    context.fill()
+//       context.beginPath()
+//       context.arc(x,y,radius*width,0,Math.PI*2)
+//       context.lineWidth = 5
+// context.fillStyle = color
+//     context.fill()
+        context.save()
+        context.fillStyle = color
+        context.font = `${radius * width }px "Serif"`
+        context.translate(x,y)
+        context.rotate(rotation)
+        context.fillText("=",0,0)
+        context.restore()
     })
   };
 };
