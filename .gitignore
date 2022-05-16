@@ -5,4 +5,5 @@ node_modules
 bundle.js
 tmp/
 *.mp4
+*.gif
 .idea
