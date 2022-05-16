@@ -2,10 +2,14 @@
 global.THREE = require("three");
 const random = require("canvas-sketch-util/random")
 const palletes = require('nice-color-palettes')
+const eases = require('eases')
+const easing = require('bezier-easing')
 // Include any additional ThreeJS examples below
 require("three/examples/js/controls/OrbitControls");
 
+
 const canvasSketch = require("canvas-sketch");
+const {math} = require("canvas-sketch-util");
 
 const settings = {
   dimensions: [512,512],
@@ -59,7 +63,7 @@ scene.add(new THREE.AmbientLight('blue'))
   light.position.set(1,2,3)
   scene.add(light)
   // Setup a mesh with geometry + material
-
+const fn = easing(0.6,0.3,0.3,0.1)
   // draw each frame
   return {
     // Handle resize events here
@@ -84,8 +88,9 @@ scene.add(new THREE.AmbientLight('blue'))
     },
     // Update & render your scene here
     render({ playhead }) {
-scene.rotation.y = playhead *Math.PI *2
-      scene.rotation.z = playhead *Math.PI*2
+      t = Math.sin(playhead *Math.PI)
+scene.rotation.y = eases.backInOut(t)
+      scene.rotation.z = fn(t)
       renderer.render(scene, camera);
     },
     // Dispose of events & renderer for cleaner hot-reloading
