@@ -1,5 +1,6 @@
 // Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require("three");
+const random = require("canvas-sketch-util/random")
 
 // Include any additional ThreeJS examples below
 require("three/examples/js/controls/OrbitControls");
@@ -24,9 +25,8 @@ const sketch = ({ context }) => {
   renderer.setClearColor("white", 1);
 
   // Setup a camera
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.01, 100);
-  camera.position.set(2, 2, 2);
-  camera.lookAt(new THREE.Vector3());
+  const camera = new THREE.OrthographicCamera()
+
 
   // Setup camera controller
 
@@ -41,23 +41,41 @@ const sketch = ({ context }) => {
     color: "red"
   });
 
+  for(let i=0;i<10;++i){
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(random.range(-1,1),random.range(-1,1),random.range(-1,1))
+    mesh.scale.multiplyScalar(0.1)
+    scene.add(mesh);
+
+  }
   // Setup a mesh with geometry + material
-  const mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
 
   // draw each frame
   return {
     // Handle resize events here
-    resize({ pixelRatio, viewportWidth, viewportHeight }) {
+    resize ({ pixelRatio, viewportWidth, viewportHeight }) {
       renderer.setPixelRatio(pixelRatio);
-      renderer.setSize(viewportWidth, viewportHeight, false);
-      camera.aspect = viewportWidth / viewportHeight;
+      renderer.setSize(viewportWidth, viewportHeight);
+
+      // Setup an isometric perspective
+      const aspect = viewportWidth / viewportHeight;
+      const zoom = 2;
+      camera.left = -zoom * aspect;
+      camera.right = zoom * aspect;
+      camera.top = zoom;
+      camera.bottom = -zoom;
+      camera.near = -100;
+      camera.far = 100;
+      camera.position.set(zoom, zoom, zoom);
+      camera.lookAt(new THREE.Vector3());
+
+      // Update camera properties
       camera.updateProjectionMatrix();
     },
     // Update & render your scene here
     render({ time }) {
 
-      mesh.rotation.y = time * 0.3
       renderer.render(scene, camera);
     },
     // Dispose of events & renderer for cleaner hot-reloading
