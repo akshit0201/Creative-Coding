@@ -8,6 +8,9 @@ require("three/examples/js/controls/OrbitControls");
 const canvasSketch = require("canvas-sketch");
 
 const settings = {
+  dimensions: [512,512],
+  fps: 24,
+  duration: 8,
   // Make the loop animated
   animate: true,
   // Get a WebGL canvas rather than 2D
@@ -80,8 +83,9 @@ scene.add(new THREE.AmbientLight('blue'))
       camera.updateProjectionMatrix();
     },
     // Update & render your scene here
-    render({ time }) {
-
+    render({ playhead }) {
+scene.rotation.y = playhead *Math.PI *2
+      scene.rotation.z = playhead *Math.PI*2
       renderer.render(scene, camera);
     },
     // Dispose of events & renderer for cleaner hot-reloading
