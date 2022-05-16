@@ -1,7 +1,7 @@
 // Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require("three");
 const random = require("canvas-sketch-util/random")
-
+const palletes = require('nice-color-palettes')
 // Include any additional ThreeJS examples below
 require("three/examples/js/controls/OrbitControls");
 
@@ -32,23 +32,29 @@ const sketch = ({ context }) => {
 
   // Setup your scene
   const scene = new THREE.Scene();
-
+const pallete = random.pick(palletes)
   // Setup a geometry
   const geometry = new THREE.BoxGeometry(1, 1, 1);
 
   // Setup a material
-  const material = new THREE.MeshBasicMaterial({
-    color: "red"
-  });
+  for(let i=0;i<40;++i){
 
-  for(let i=0;i<10;++i){
+
+    const material = new THREE.MeshStandardMaterial({
+      color: random.pick(pallete)
+    });
 
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(random.range(-1,1),random.range(-1,1),random.range(-1,1))
-    mesh.scale.multiplyScalar(0.1)
+    mesh.scale.set(random.range(-1,1),random.range(-1,1),random.range(-1,1))
+    mesh.scale.multiplyScalar(0.4)
     scene.add(mesh);
 
   }
+scene.add(new THREE.AmbientLight('blue'))
+  const light = new THREE.DirectionalLight('white',1)
+  light.position.set(1,2,3)
+  scene.add(light)
   // Setup a mesh with geometry + material
 
   // draw each frame
