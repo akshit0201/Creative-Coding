@@ -23,7 +23,8 @@ const frag = glsl(`
   center.x *= aspect;
   float dis = length(center);
   vec3 color = mix(cA,cB,vUv.y);
-   gl_FragColor = vec4(color,dis>0.25?0.0:1.0);
+  float alpha = smoothstep(0.251,0.25,dis);
+   gl_FragColor = vec4(color,alpha);
   }
 `);
 
@@ -31,6 +32,7 @@ const frag = glsl(`
 const sketch = ({ gl }) => {
   // Create the shader and return it
   return createShader({
+    clearColor: 'white',
     // Pass along WebGL context
     gl,
     // Specify fragment and/or vertex shader strings
