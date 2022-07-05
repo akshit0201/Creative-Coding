@@ -31,7 +31,7 @@ Finally, run one of the three scripts ([shader.js](https://github.com/akshit0201
 
 ![3D gif of webgl.js](3Dresults/gif3D.gif)
 
-[Webgl.js](https://github.com/akshit0201/Creative-Coding/blob/main/webgl.js)) uses [three.js](https://threejs.org/) to create immersive 3D visulatizatons. The results are in the [3Dresults](3Dresults) folder. npm's `bezier-easing` & `eases` libraries are used for adding smooth animations.
+[Webgl.js](https://github.com/akshit0201/Creative-Coding/blob/main/webgl.js) uses [three.js](https://threejs.org/) to create immersive 3D visulatizatons. The results are in the [3Dresults](3Dresults) folder. npm's `bezier-easing` & `eases` libraries are used for adding smooth animations.
 
 ## shader.js
 
